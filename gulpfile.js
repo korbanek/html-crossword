@@ -2,16 +2,13 @@
  * Commands:
  * 'gulp' - build all
  * 'gulp clean' - clean
- * 'gulp sync' - watch with browsersync
- * 'gulp watch - watch without browsersync
+ * 'gulp watch - watch for changes in src
  */
 
 var
     // Config
     config = {
-        url: 'http://smartdesignexpo.local/',
-        autoprefixer: ['last 50 versions', 'IE 8'],
-        tinypngKey: 'WRF4snMdoNj3cWDK78kl8spbfdXIZtbV'
+        autoprefixer: ['last 50 versions', 'IE 8']
     },
 
     // Dependencies
@@ -38,21 +35,9 @@ var
             src: base.src + '/js/**/*.js',
             dest: assets + '/js'
         },
-        images: {
-            dir: base.src + '/img',
-            dest: assets + '/img',
-            src: base.src + '/img/**/*',
-        },
-        svgIcons: {
-            src: base.src + '/img/svg/sprite-icons/*.svg',
-            dest: assets + '/img/svg/sprite-icons'
-        },
         static: {
             src: base.src + '/static/**/*',
             dest: assets + '/static'
-        },
-        bower: {
-            dir: 'bower_components'
         }
     };
 jsQueue = [
