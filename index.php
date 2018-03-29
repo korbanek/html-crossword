@@ -27,7 +27,6 @@
             <button type="button" id="solve_button">Solve</button>
         </div>
 
-        <script src="//code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="build/js/bundle.js"></script>
         <script>
             var crosswordFields = [
