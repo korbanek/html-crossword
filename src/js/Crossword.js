@@ -65,10 +65,10 @@ function Crossword(fields, passwordColumn, container)
 
         if(successCount == that.rows.length)
         {
-            console.log('Win');
-        }else{
-            console.log('Lose');
+            return true;
         }
+        
+        return false;
     }
 
     /**
