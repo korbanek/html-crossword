@@ -19,13 +19,13 @@ RowModel.prototype = Object.create(Model.prototype, {
     keydown: {
         value: function(e){
             if(e.which == 38){
-                if(this.previousSibling){
-                    this.previousSibling.querySelector('.tile.input').focus();
+                if(this.element.previousSibling){
+                    this.element.previousSibling.querySelector('.tile.input').focus();
                 }
             }
             if(e.which == 40){
-                if(this.nextSibling){
-                    this.nextSibling.querySelector('.tile.input').focus();
+                if(this.element.nextSibling){
+                    this.element.nextSibling.querySelector('.tile.input').focus();
                 }
             }
         }

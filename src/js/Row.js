@@ -3,10 +3,11 @@
  * 
  * Represents Crossword Row
  */
-Crossword.Row = function()
+Crossword.Row = function(index)
 {
     var that = this;
     this.tiles = [];
+    this.index = index;
     this.model = new RowModel();
 
     this.add = function(tile)
@@ -67,5 +68,39 @@ Crossword.Row = function()
         that.tiles.forEach(function(tile, index){
             tile.appendTo(that.model);
         });
+    }
+
+    this.solveRandom = function()
+    {
+        var tiles = [];
+
+        this.tiles.forEach(function(tile){
+            if(tile.model instanceof TileModel && tile.model.element.value == ''){
+                tiles.push(tile);
+            }
+        });
+
+        if(!tiles.length){
+            return;
+        }
+
+        var randomIndex = Math.floor(Math.random() * tiles.length);
+        var random = tiles[randomIndex];
+
+        tiles.splice(randomIndex, 1);
+
+        if(random.model instanceof TileModel){
+            do{
+                if(random.model.element.value == ''){
+                    random.model.element.value = random.model.value;
+                    random.model.blur();
+                    break;
+                }
+
+                var randomIndex = Math.floor(Math.random() * tiles.length);
+                random = tiles[randomIndex];
+            }
+            while(random.model.element.value != '');
+        }
     }
 }

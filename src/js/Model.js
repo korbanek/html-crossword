@@ -9,11 +9,11 @@ function Model(html)
 {
     var that = this;
     this.html = html;
-    this.element = this.createDOMElement(html);
+    this.element = this.createHTMLElement(html);
 
     // Assing Model events into element
     Model.eventList.forEach(function(event){
-        that.element.addEventListener(event, that[event]);
+        that.element.addEventListener(event, that[event].bind(that), false);
     });
 }
 
@@ -52,7 +52,7 @@ Model.prototype = {
      * 
      * @param {string} htmlString - representative of Model html string
      */
-    createDOMElement: function(htmlString)
+    createHTMLElement: function(htmlString)
     {
         this.uid = Crossword.uid++;
 

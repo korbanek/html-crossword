@@ -7,16 +7,19 @@
  * @param {int} rowIndex - row index of Tile
  * @param {int} colIndex - column index of Tile
  */
-Crossword.Tile = function(value, rowIndex, colIndex)
+Crossword.Tile = function(value, row, colIndex)
 {
     var that = this;
     this.value = value;
+    this.row = row;
 
     // Assign model dependent on value
-    if(value == false){
+    if(value == 0){
         this.model = new PlaceholderModel();
-    }else if(value == true){
-        this.model = new RowIndexModel(rowIndex);
+    }else if(value == 1){
+        this.model = new RowIndexModel(that.row);
+    }else if(value == 2){
+        this.model = new HintModel(that);
     }else{
         if(colIndex == Crossword.passwordColumn){
             this.model = new PasswordTileModel(value);
@@ -41,6 +44,11 @@ Crossword.Tile = function(value, rowIndex, colIndex)
         that.model.appendTo(model);
     }
 
+    this.find = function()
+    {
+
+    }
+
     /**
      * Clear input model element
      */
@@ -48,6 +56,7 @@ Crossword.Tile = function(value, rowIndex, colIndex)
     {
         if(that.model instanceof TileModel){
             that.model.element.value = "";
+            that.model.element.classList.remove('invalid');
         }
     }
 }

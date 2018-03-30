@@ -1,14 +1,14 @@
 /**
  * @class RowIndexModel
  * 
- * @param {int} index - index of row
+ * @param {Row} row - Row object
  */
-function RowIndexModel(index)
+function RowIndexModel(row)
 {
     // Super constructor
     Model.call(this, '<div class="tile number"></div>');
 
-    this.element.innerHTML = '<span>' + (index + 1) + '</span>';
+    this.element.innerHTML = '<span>' + (row.index + 1) + '</span>';
 }
 /**
  * RowIndexModel extends Model

@@ -5,7 +5,7 @@
  * 
  * @param {Array} fields - array mapped fields
  * @param {int} passwordColumn - column of password
- * @param {DOMElement} container - container of crossword. Default body
+ * @param {HTMLElement} container - container of crossword. Default body
  */
 function Crossword(fields, passwordColumn, container)
 {
@@ -20,11 +20,11 @@ function Crossword(fields, passwordColumn, container)
     // For all fields extract rows
     fields.forEach(function(row, rowIndex){
         // Add Row to Crossword.rows
-        that.rows.push(new Crossword.Row());
+        that.rows.push(new Crossword.Row(rowIndex));
         // For each columns in Row extract column
         row.forEach(function(col, colIndex){
             // Add Tile into Row
-            that.rows[rowIndex].add(new Crossword.Tile(col, rowIndex, colIndex));
+            that.rows[rowIndex].add(new Crossword.Tile(col, that.rows[rowIndex], colIndex));
         });
     });
 
