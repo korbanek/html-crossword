@@ -47,11 +47,25 @@ TileModel.prototype = Object.create(Model.prototype, {
             }
         }
     },
+    keyup: {
+        value: function(e)
+        {
+            e = e || window.event;
+            e.preventDefault();
+        }
+    },
     keydown: {
         value: function(e){
+            e = e || window.event;
+
             if(e.which == 8 || e.which == 37){
                 if(this.element.previousSibling){
+                    e.preventDefault();
+                    var val = this.element.previousSibling.value;
                     this.element.previousSibling.focus();
+                    if(e.which == 8){
+                        this.element.value = '';
+                    }
                 }
                 return;
             }
@@ -61,6 +75,7 @@ TileModel.prototype = Object.create(Model.prototype, {
                 }
                 return;
             }
+
             if(e.which == 40 || e.which == 38){
                 return;
             }
@@ -69,23 +84,20 @@ TileModel.prototype = Object.create(Model.prototype, {
     keypress: {
         value: function(e){
             e = e || window.event;
-            console.log(e.which);
-
-            e = e || window.event;
+            e.preventDefault();
+        
             var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
             var charStr = String.fromCharCode(charCode);
-            
+
             // Check if digit is letter
             if (!/[A-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]/.test(charStr)) {
                 // If not prevent input
                 e.preventDefault();
-                this.element.value = '';
                 return false;
             }else{
                 // Otherwise apply uppercased char string
                 this.element.value = charStr.toUpperCase();
             }
-            // Jump to next on tabulator
             if(e.which != 9){
                 if(this.element.nextSibling){
                     this.element.nextSibling.focus();
