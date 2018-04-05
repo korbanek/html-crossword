@@ -1,7 +1,9 @@
 /**
- * @class Crossword.Row
+ * @class Row
  * 
- * Represents Crossword Row
+ * Represents Crossword Row.
+ * 
+ * @param {int} index - row index of Row
  */
 Crossword.Row = function(index)
 {
@@ -10,6 +12,11 @@ Crossword.Row = function(index)
     this.index = index;
     this.model = new RowModel();
 
+    /**
+     * Adds tile to tiles[]
+     * 
+     * @param {Tile} tile 
+     */
     this.add = function(tile)
     {
         this.tiles.push(tile);
@@ -31,6 +38,9 @@ Crossword.Row = function(index)
         return count;
     }
 
+    /**
+     * Clear all tiles within row
+     */
     this.clear = function()
     {
         that.tiles.forEach(function(tile){
@@ -59,17 +69,23 @@ Crossword.Row = function(index)
     }
 
     /**
+     * Append model element to crossword model element
+     * 
      * @param {CrosswordModel} crosswordModel - crossword model to append to 
      */
     this.appendTo = function(crosswordModel)
     {
         that.model.appendTo(crosswordModel);
 
+        // Append tiles to row
         that.tiles.forEach(function(tile, index){
             tile.appendTo(that.model);
         });
     }
 
+    /**
+     * Solve random row
+     */
     this.solveRandom = function()
     {
         var tiles = [];
@@ -80,27 +96,22 @@ Crossword.Row = function(index)
             }
         });
 
+        // If there is no TileModel tiles
         if(!tiles.length){
             return;
         }
 
-        var randomIndex = Math.floor(Math.random() * tiles.length);
-        var random = tiles[randomIndex];
+        do{
+            var randomIndex = Math.floor(Math.random() * tiles.length);
+            random = tiles[randomIndex];
+            tiles.splice(randomIndex, 1);
 
-        tiles.splice(randomIndex, 1);
-
-        if(random.model instanceof TileModel){
-            do{
-                if(random.model.element.value == ''){
-                    random.model.element.value = random.model.value;
-                    random.model.blur();
-                    break;
-                }
-
-                var randomIndex = Math.floor(Math.random() * tiles.length);
-                random = tiles[randomIndex];
+            if(random.model.element.value == ''){
+                random.model.element.value = random.model.value;
+                random.model.blur();
+                break;
             }
-            while(random.model.element.value != '');
         }
+        while(random.model.element.value != '');
     }
 }

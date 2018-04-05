@@ -23,7 +23,7 @@ TileModel.prototype = Object.create(Model.prototype, {
         {
             this.element.parentNode.classList.add('active');
             this.element.classList.add('active');
-            this.element.select();
+            this.element.focus();
         }
     },
     solve: {
@@ -47,8 +47,30 @@ TileModel.prototype = Object.create(Model.prototype, {
             }
         }
     },
+    keydown: {
+        value: function(e){
+            if(e.which == 8 || e.which == 37){
+                if(this.element.previousSibling){
+                    this.element.previousSibling.focus();
+                }
+                return;
+            }
+            if(e.which == 39){
+                if(this.element.nextSibling){
+                    this.element.nextSibling.focus();
+                }
+                return;
+            }
+            if(e.which == 40 || e.which == 38){
+                return;
+            }
+        }
+    },
     keypress: {
         value: function(e){
+            e = e || window.event;
+            console.log(e.which);
+
             e = e || window.event;
             var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
             var charStr = String.fromCharCode(charCode);
@@ -57,6 +79,7 @@ TileModel.prototype = Object.create(Model.prototype, {
             if (!/[A-zĄĆĘŁŃÓŚŹŻąćęłńóśźż]/.test(charStr)) {
                 // If not prevent input
                 e.preventDefault();
+                this.element.value = '';
                 return false;
             }else{
                 // Otherwise apply uppercased char string
@@ -64,20 +87,6 @@ TileModel.prototype = Object.create(Model.prototype, {
             }
             // Jump to next on tabulator
             if(e.which != 9){
-                if(this.element.nextSibling){
-                    this.element.nextSibling.focus();
-                }
-            }
-        }
-    },
-    keyup: {
-        value: function(e){
-            if(e.which == 8 || e.which == 37){
-                if(this.element.previousSibling){
-                    this.element.previousSibling.focus();
-                }
-            }
-            if(e.which == 39){
                 if(this.element.nextSibling){
                     this.element.nextSibling.focus();
                 }

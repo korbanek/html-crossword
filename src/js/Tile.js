@@ -1,5 +1,5 @@
 /**
- * @class Crossword.Tile
+ * @class Tile
  * 
  * Represents Crossword Tile
  * 
@@ -37,16 +37,13 @@ Crossword.Tile = function(value, row, colIndex)
     }
 
     /**
-     * @param {Model} model - model to append to 
+     * Append model element to row model element
+     * 
+     * @param {RowModel} rowModel - row model to append to 
      */
-    this.appendTo = function(model)
+    this.appendTo = function(rowModel)
     {
-        that.model.appendTo(model);
-    }
-
-    this.find = function()
-    {
-
+        that.model.appendTo(rowModel);
     }
 
     /**
